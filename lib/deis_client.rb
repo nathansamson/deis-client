@@ -205,7 +205,11 @@ module Deis
     end
 
     def certs_create(certificate, key, name = nil)
-      perform :certs_create, { certificate: certificate, key: key, common_name: name}
+      if name.nil?
+        perform :certs_create,  { }, { certificate: certificate, key: key }
+      else
+        perform :certs_create,  { }, { certificate: certificate, key: key, common_name: name }
+      end
     end
 
     protected
